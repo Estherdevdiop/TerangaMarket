@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"components\\\\product\\\\ProductCard.tsx -> @/lib/tracking\":{\"id\":\"components\\\\product\\\\ProductCard.tsx -> @/lib/tracking\",\"files\":[]}}"
