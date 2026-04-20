@@ -21,7 +21,7 @@ export default function RegisterPage() {
     setError('')
     setLoading(true)
     try {
-      const user = await register(form)
+      const user = await register({ ...form, role: isVendeur ? 'VENDEUR' : 'CLIENT' })
       window.location.href = user.role === 'VENDEUR' ? '/vendeur' : '/'
     } catch { setError('Une erreur est survenue. Vérifiez vos informations.') }
     finally { setLoading(false) }

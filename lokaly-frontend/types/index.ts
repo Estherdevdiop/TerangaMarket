@@ -13,7 +13,7 @@ export interface Product {
   description: string
   price: number
   stock: number
-  category: Category
+  category: Category | null
   vendor: Vendor
   region_origin: string
   material?: string
@@ -57,6 +57,7 @@ export interface DeliveryZone {
   id: number
   code: string
   name: string
+  description?: string
   base_cost: number
   delay_label: string
 }
@@ -66,7 +67,7 @@ export interface Order {
   items: OrderItem[]
   total: number
   shipping_cost: number
-  delivery_zone: DeliveryZone
+  delivery_zone: DeliveryZone | null
   status: 'en_attente' | 'paiement_en_cours' | 'payee' | 'livree' | 'annulee' | 'echec_paiement'
   payment_type: 'wave' | 'orange_money' | 'livraison'
   created_at: string

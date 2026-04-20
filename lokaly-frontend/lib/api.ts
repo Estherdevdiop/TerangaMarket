@@ -1,4 +1,5 @@
 import axios from 'axios'
+import type { AxiosRequestHeaders } from 'axios'
 import Cookies from 'js-cookie'
 
 export const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
@@ -11,7 +12,11 @@ const api = axios.create({
 // Attach JWT token to every request
 api.interceptors.request.use((config) => {
   const token = Cookies.get('access_token')
-  if (token) config.headers.Authorization = `Bearer ${token}`
+  if (token) {
+    const headers = (config.headers || {}) as AxiosRequestHeaders
+    headers.Authorization = `Bearer ${token}`
+    config.headers = headers
+  }
   return config
 })
 

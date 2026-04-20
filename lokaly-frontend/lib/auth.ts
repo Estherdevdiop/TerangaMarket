@@ -17,7 +17,7 @@ export async function login(email: string, password: string): Promise<User> {
 }
 
 export async function register(data: {
-  name: string; email: string; password: string; phone?: string; region?: string
+  name: string; email: string; password: string; phone?: string; region?: string; role?: 'CLIENT' | 'VENDEUR'
 }): Promise<User> {
   const res = await api.post('/auth/register', data)
   Cookies.set('access_token', res.data.access, { expires: 7 })

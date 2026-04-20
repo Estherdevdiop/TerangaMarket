@@ -11,7 +11,8 @@ import { track } from '@/lib/tracking'
 import type { Product } from '@/types'
 
 export default function ProductDetailPage() {
-  const { slug }    = useParams<{ slug: string }>()
+  const params      = useParams()
+  const slug        = Array.isArray(params?.slug) ? params.slug[0] : params?.slug
   const [product, setProduct]   = useState<Product | null>(null)
   const [loading, setLoading]   = useState(true)
   const [mainImg, setMainImg]   = useState<string>('')
@@ -20,6 +21,11 @@ export default function ProductDetailPage() {
   const [added, setAdded]       = useState(false)
 
   useEffect(() => {
+    if (!slug) {
+      setLoading(false)
+      setProduct(null)
+      return
+    }
     api.get(`/products/${slug}`)
       .then(r => {
         setProduct(r.data)
