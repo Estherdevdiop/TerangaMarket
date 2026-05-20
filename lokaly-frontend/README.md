@@ -1,4 +1,4 @@
-# Lokaly — Frontend Next.js
+# TerangaMarket — Frontend Next.js
 
 Plateforme e-commerce intelligente de produits artisanaux sénégalais.
 **Next.js 14 · TypeScript · Tailwind CSS · App Router**

@@ -35,7 +35,7 @@ export default function VendeurPage() {
       {/* Sidebar */}
       <aside className="w-56 bg-[#1a1208] flex-shrink-0 hidden md:flex flex-col p-4 gap-1">
         <div className="mb-6 px-2">
-          <span className="font-display text-xl font-bold text-[#e8720a]">Lokaly</span>
+<span className="font-display text-xl font-bold text-[#e8720a]">TerangaMarket</span>
           <p className="text-xs text-[#c4a472] mt-0.5">Espace Vendeur</p>
         </div>
         {[

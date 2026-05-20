@@ -10,18 +10,34 @@ export interface User {
   region?: string
 }
 
+function getErrorMessage(err: any): string {
+  if (err.response?.data?.detail) return err.response.data.detail
+  if (err.response?.data?.email?.[0]) return err.response.data.email[0]
+  if (err.response?.data?.password?.[0]) return err.response.data.password[0]
+  if (err.message) return err.message
+  return 'Une erreur est survenue.'
+}
+
 export async function login(email: string, password: string): Promise<User> {
-  const res = await api.post('/auth/login', { email, password })
-  Cookies.set('access_token', res.data.access, { expires: 7 })
-  return res.data.user
+  try {
+    const res = await api.post('/auth/login', { email, password })
+    Cookies.set('access_token', res.data.access, { expires: 7 })
+    return res.data.user
+  } catch (err: any) {
+    throw new Error(getErrorMessage(err))
+  }
 }
 
 export async function register(data: {
   name: string; email: string; password: string; phone?: string; region?: string; role?: 'CLIENT' | 'VENDEUR'
 }): Promise<User> {
-  const res = await api.post('/auth/register', data)
-  Cookies.set('access_token', res.data.access, { expires: 7 })
-  return res.data.user
+  try {
+    const res = await api.post('/auth/register', data)
+    Cookies.set('access_token', res.data.access, { expires: 7 })
+    return res.data.user
+  } catch (err: any) {
+    throw new Error(getErrorMessage(err))
+  }
 }
 
 export async function logout() {

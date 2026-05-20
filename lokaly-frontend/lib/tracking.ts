@@ -21,10 +21,10 @@ interface TrackPayload {
 // Generate or get anonymous session ID
 function getSessionId(): string {
   if (typeof window === 'undefined') return ''
-  let sid = sessionStorage.getItem('lokaly_sid')
+  let sid = sessionStorage.getItem('terangamarket_sid')
   if (!sid) {
     sid = `anon_${Date.now()}_${Math.random().toString(36).slice(2)}`
-    sessionStorage.setItem('lokaly_sid', sid)
+    sessionStorage.setItem('terangamarket_sid', sid)
   }
   return sid
 }

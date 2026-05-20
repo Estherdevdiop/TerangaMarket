@@ -23,39 +23,40 @@ export default function RegisterPage() {
     try {
       const user = await register({ ...form, role: isVendeur ? 'VENDEUR' : 'CLIENT' })
       window.location.href = user.role === 'VENDEUR' ? '/vendeur' : '/'
-    } catch { setError('Une erreur est survenue. Vérifiez vos informations.') }
-    finally { setLoading(false) }
+    } catch (err: any) {
+      setError(err.message || 'Oups ! Quelque chose a mal tourné. Vérifie tes infos et réessaie 😊')
+    } finally { setLoading(false) }
   }
 
   return (
     <div className="min-h-screen bg-[#faf6f0] flex items-center justify-center px-4 py-8">
       <div className="bg-white rounded-2xl border border-[#f0e8d8] shadow-lg p-8 w-full max-w-sm space-y-6">
         <div className="text-center">
-          <Link href="/" className="font-display text-3xl font-bold text-[#e8720a]">Lokaly</Link>
+<Link href="/" className="font-display text-3xl font-bold text-[#e8720a]">TerangaMarket</Link>
           <p className="text-sm text-[#8b6030] mt-1">
-            {isVendeur ? 'Créer un compte vendeur' : 'Créer votre compte client'}
+            {isVendeur ? 'Rejoins-nous en tant que vendeur ! 🛒' : 'Bienvenue parmi nous ! Crée ton compte 😊'}
           </p>
         </div>
         {isVendeur && (
           <div className="bg-[#fff8f0] border border-[#ffd4a8] rounded-xl p-3 text-xs text-[#8b6030]">
-            🛒 Votre compte vendeur sera soumis à validation par l'administrateur avant activation.
+            🛒 Ton compte vendeur sera validé par l'admin rapidement. Patience, ton atelier va briller !
           </div>
         )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-semibold text-[#1a1208] mb-1.5">Nom complet</label>
+            <label className="block text-sm font-semibold text-[#1a1208] mb-1.5">Ton nom complet 😊</label>
             <input required value={form.name} onChange={e => set('name', e.target.value)}
-              placeholder="Votre nom" className="input-base" />
+              placeholder="ex: Aïssatou Ndiaye" className="input-base" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-[#1a1208] mb-1.5">Email</label>
+            <label className="block text-sm font-semibold text-[#1a1208] mb-1.5">Ton email</label>
             <input type="email" required value={form.email} onChange={e => set('email', e.target.value)}
-              placeholder="votre@email.com" className="input-base" />
+              placeholder="tonemail@lokaly.sn" className="input-base" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-[#1a1208] mb-1.5">Téléphone</label>
+            <label className="block text-sm font-semibold text-[#1a1208] mb-1.5">Ton téléphone</label>
             <input type="tel" value={form.phone} onChange={e => set('phone', e.target.value)}
-              placeholder="77 XXX XX XX" className="input-base" maxLength={12} />
+              placeholder="77 123 45 67" className="input-base" maxLength={12} />
           </div>
           <div>
             <label className="block text-sm font-semibold text-[#1a1208] mb-1.5">Région</label>
@@ -65,24 +66,22 @@ export default function RegisterPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-semibold text-[#1a1208] mb-1.5">Mot de passe</label>
+            <label className="block text-sm font-semibold text-[#1a1208] mb-1.5">Mot de passe sécurisé</label>
             <input type="password" required value={form.password} onChange={e => set('password', e.target.value)}
-              placeholder="Min. 8 caractères" className="input-base" minLength={8} />
+              placeholder="Au moins 8 caractères forts" className="input-base" minLength={8} />
           </div>
           {error && <p className="text-red-500 text-sm bg-red-50 px-3 py-2 rounded-xl">{error}</p>}
           <button type="submit" disabled={loading} className="btn-primary w-full py-3 disabled:opacity-60">
-            {loading ? 'Création...' : isVendeur ? 'Créer mon compte vendeur' : 'S\'inscrire'}
+            {loading ? 'On y est presque...' : isVendeur ? '🚀 Lance ma boutique !' : 'Commencer l\'aventure !'}
           </button>
         </form>
         <p className="text-center text-sm text-[#8b6030]">
-          Déjà un compte ?{' '}
-          <Link href="/auth/login" className="text-[#e8720a] font-semibold hover:underline">Se connecter</Link>
+          Déjà avec nous ? <Link href="/auth/login" className="text-[#e8720a] font-semibold hover:underline">Connecte-toi</Link>
         </p>
         {!isVendeur && (
           <p className="text-center text-xs text-[#c4a472]">
-            Vous êtes artisan ?{' '}
-            <Link href="/auth/register?role=vendeur" className="text-[#e8720a] hover:underline">
-              Créer un compte vendeur
+            Artisan talentueux ? <Link href="/auth/register?role=vendeur" className="text-[#e8720a] hover:underline">
+              Crée ton espace vendeur
             </Link>
           </p>
         )}

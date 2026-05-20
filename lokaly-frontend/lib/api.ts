@@ -20,13 +20,16 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-// Auto-redirect on 401
+// Auto-redirect on 401 (but not on auth pages to show error messages)
 api.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response?.status === 401 && typeof window !== 'undefined') {
-      Cookies.remove('access_token')
-      window.location.href = '/auth/login'
+      const isAuthPage = window.location.pathname.startsWith('/auth/')
+      if (!isAuthPage) {
+        Cookies.remove('access_token')
+        window.location.href = '/auth/login'
+      }
     }
     return Promise.reject(err)
   }

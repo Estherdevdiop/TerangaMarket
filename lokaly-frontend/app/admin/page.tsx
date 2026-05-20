@@ -59,7 +59,7 @@ export default function AdminPage() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="font-display text-2xl font-bold text-[#1a1208]">Tableau de bord</h1>
-            <p className="text-sm text-[#8b6030] mt-0.5">Vue globale de la plateforme Lokaly</p>
+            <p className="text-sm text-[#8b6030] mt-0.5">Vue globale de la plateforme TerangaMarket</p>
           </div>
           <select value={period} onChange={e => setPeriod(e.target.value)} className="input-base py-1.5 text-sm w-44">
             <option value="7d">7 derniers jours</option>

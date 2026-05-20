@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ShoppingBag, Search, User, Menu, X, ChevronDown, LogOut } from 'lucide-react'
+import { Search, User, Menu, X, LogOut, Heart, ChevronDown } from 'lucide-react'
 import { isLoggedIn, getMe, logout } from '@/lib/auth'
 import type { User as UserType } from '@/lib/auth'
 import api from '@/lib/api'
@@ -44,7 +44,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
           <span className="font-display text-2xl font-bold text-[#e8720a] tracking-tight">
-            Lokaly
+            TerangaMarket
           </span>
           <span className="text-xs text-[#8b6030] block -mt-1 leading-none">artisanat sénégalais</span>
         </Link>
@@ -55,7 +55,7 @@ export default function Navbar() {
             onMouseEnter={() => setCatOpen(true)}
             className="flex items-center gap-1 text-sm font-medium text-[#5c4a2a] hover:text-[#e8720a] transition-colors py-2 px-3 rounded-lg hover:bg-[#faf6f0]"
           >
-            Catégories <ChevronDown size={14} className={`transition-transform ${catOpen ? 'rotate-180' : ''}`} />
+Catégories <ChevronDown size={14} className={`transition-transform ${catOpen ? 'rotate-180' : ''}`} />
           </button>
           {catOpen && (
             <div className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-xl border border-[#f0e8d8] w-56 py-2 z-50">
@@ -84,7 +84,7 @@ export default function Navbar() {
         <div className="ml-auto flex items-center gap-2">
           {/* Cart */}
           <Link href="/panier" className="relative p-2 rounded-lg hover:bg-[#faf6f0] transition-colors">
-            <ShoppingBag size={22} className="text-[#5c4a2a]" />
+<span className="text-[#5c4a2a] font-semibold">Panier</span>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-[#e8720a] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                 {cartCount}

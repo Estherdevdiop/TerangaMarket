@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-[#291a08] text-[#c4a472] mt-20">
       <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <span className="font-display text-2xl font-bold text-[#e8720a]">Lokaly</span>
+          <span className="font-display text-2xl font-bold text-[#e8720a]">TerangaMarket</span>
           <p className="mt-3 text-sm text-[#a87d45] leading-relaxed">
             La plateforme de référence pour l'artisanat de mode et la maroquinerie locale sénégalaise.
           </p>
@@ -36,7 +36,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-[#3d280f] px-4 py-4 text-center text-xs text-[#6e4a22]">
-        © {new Date().getFullYear()} Lokaly — Plateforme e-commerce intelligente · Dakar, Sénégal
+        © {new Date().getFullYear()} TerangaMarket — Plateforme e-commerce intelligente · Dakar, Sénégal
       </div>
     </footer>
   )

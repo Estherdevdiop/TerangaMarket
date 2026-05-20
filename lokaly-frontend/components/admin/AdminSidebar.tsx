@@ -19,7 +19,7 @@ export default function AdminSidebar() {
     <aside className="w-60 bg-[#1a1208] flex-shrink-0 hidden md:flex flex-col p-4 gap-1 min-h-screen sticky top-0">
       {/* Logo */}
       <div className="mb-8 px-2 pt-2">
-        <span className="font-display text-2xl font-bold text-[#e8720a]">Lokaly</span>
+        <span className="font-display text-2xl font-bold text-[#e8720a]">TerangaMarket</span>
         <p className="text-xs text-[#c4a472] mt-0.5">Administration</p>
       </div>
 
@@ -38,7 +38,7 @@ export default function AdminSidebar() {
       {/* Bottom info */}
       <div className="mt-auto px-2 pt-6 border-t border-[#3d280f]">
         <p className="text-xs text-[#6e4a22]">MVP — Master 2</p>
-        <p className="text-xs text-[#6e4a22]">Lokaly · Dakar 🇸🇳</p>
+        <p className="text-xs text-[#6e4a22]">TerangaMarket · Dakar 🇸🇳</p>
       </div>
     </aside>
   )
