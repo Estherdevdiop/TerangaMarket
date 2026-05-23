@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -14,7 +14,7 @@ const STYLES    = ['Traditionnel','Contemporain','Fusion','Minimaliste','Coloré
 const REGIONS   = ['Dakar','Saint-Louis','Thiès','Kaolack','Ziguinchor','Touba','Louga']
 const OCCASIONS = ['Quotidien','Cérémonie','Cadeau','Voyage','Mariage']
 
-export default function ProduitsPage() {
+function ProduitsContent() {
   const searchParams = useSearchParams()
   const router       = useRouter()
 
@@ -200,5 +200,12 @@ export default function ProduitsPage() {
       </main>
       <Footer />
     </>
+  )
+}
+export default function ProduitsPage() {
+  return (
+    <Suspense fallback={<div>Chargement...</div>}>
+      <ProduitsContent />
+    </Suspense>
   )
 }

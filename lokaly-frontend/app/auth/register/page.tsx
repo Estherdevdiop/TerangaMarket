@@ -1,17 +1,17 @@
 'use client'
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { register } from '@/lib/auth'
 
 const REGIONS = ['Dakar','Saint-Louis','Thiès','Kaolack','Ziguinchor','Touba','Louga','Diourbel','Fatick','Kaffrine','Kédougou','Kolda','Matam','Sédhiou','Tambacounda']
 
-export default function RegisterPage() {
+function RegisterForm() {
   const searchParams = useSearchParams()
   const isVendeur = searchParams.get('role') === 'vendeur'
 
   const [form, setForm] = useState({ name: '', email: '', password: '', phone: '', region: '' })
-  const [error, setError]   = useState('')
+  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const set = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }))
@@ -32,7 +32,7 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-[#faf6f0] flex items-center justify-center px-4 py-8">
       <div className="bg-white rounded-2xl border border-[#f0e8d8] shadow-lg p-8 w-full max-w-sm space-y-6">
         <div className="text-center">
-<Link href="/" className="font-display text-3xl font-bold text-[#e8720a]">TerangaMarket</Link>
+          <Link href="/" className="font-display text-3xl font-bold text-[#e8720a]">TerangaMarket</Link>
           <p className="text-sm text-[#8b6030] mt-1">
             {isVendeur ? 'Rejoins-nous en tant que vendeur ! 🛒' : 'Bienvenue parmi nous ! Crée ton compte 😊'}
           </p>
@@ -72,7 +72,7 @@ export default function RegisterPage() {
           </div>
           {error && <p className="text-red-500 text-sm bg-red-50 px-3 py-2 rounded-xl">{error}</p>}
           <button type="submit" disabled={loading} className="btn-primary w-full py-3 disabled:opacity-60">
-            {loading ? 'On y est presque...' : isVendeur ? '🚀 Lance ma boutique !' : 'Commencer l\'aventure !'}
+            {loading ? 'On y est presque...' : isVendeur ? '🚀 Lance ma boutique !' : "Commencer l'aventure !"}
           </button>
         </form>
         <p className="text-center text-sm text-[#8b6030]">
@@ -87,5 +87,13 @@ export default function RegisterPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div>Chargement...</div>}>
+      <RegisterForm />
+    </Suspense>
   )
 }
