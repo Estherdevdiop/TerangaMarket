@@ -4,12 +4,12 @@ import RecommendationBlock from '@/components/recommendation/RecommendationBlock
 import Link from 'next/link'
 
 const CATEGORIES = [
-  { name: 'Sacs artisanaux',    slug: 'sacs-artisanaux',    icon: '👜', color: '#ffeedd' },
-  { name: 'Portefeuilles',      slug: 'portefeuilles',       icon: '👛', color: '#e8f5e9' },
-  { name: 'Ceintures',          slug: 'ceintures',           icon: '🪡', color: '#e3f2fd' },
-  { name: 'Chaussures',         slug: 'chaussures-artisanales', icon: '👞', color: '#fff3e0' },
-  { name: 'Bijoux',             slug: 'bijoux-artisanaux',   icon: '💍', color: '#f3e5f5' },
-  { name: 'Accessoires',        slug: 'accessoires-textiles',icon: '🧣', color: '#e8f5e9' },
+  { name: 'Sacs artisanaux',    slug: 'sacs-artisanaux',    image: 'https://source.unsplash.com/featured/300x300/?handmade,bags,leather', color: '#ffeedd' },
+  { name: 'Portefeuilles',      slug: 'portefeuilles',       image: 'https://source.unsplash.com/featured/300x300/?wallet,leather', color: '#e8f5e9' },
+  { name: 'Ceintures',          slug: 'ceintures',           image: 'https://source.unsplash.com/featured/300x300/?belt,leather', color: '#e3f2fd' },
+  { name: 'Chaussures',         slug: 'chaussures-artisanales', image: 'https://source.unsplash.com/featured/300x300/?shoe,artisan,leather', color: '#fff3e0' },
+  { name: 'Bijoux',             slug: 'bijoux-artisanaux',   image: 'https://source.unsplash.com/featured/300x300/?jewelry,artisan,handmade', color: '#f3e5f5' },
+  { name: 'Accessoires',        slug: 'accessoires-textiles',image: 'https://source.unsplash.com/featured/300x300/?textile,accessory,handmade', color: '#e8f5e9' },
 ]
 
 export default function HomePage() {
@@ -61,9 +61,15 @@ export default function HomePage() {
           <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
             {CATEGORIES.map(cat => (
               <Link key={cat.slug} href={`/produits?categorie=${cat.slug}`}
-                className="flex flex-col items-center gap-2 p-4 rounded-2xl hover:shadow-md transition-all border border-[#f0e8d8] hover:border-[#e8720a]/30"
+                className="flex flex-col items-center gap-3 p-4 rounded-2xl hover:shadow-md transition-all border border-[#f0e8d8] hover:border-[#e8720a]/30"
                 style={{ background: cat.color }}>
-                <span className="text-3xl">{cat.icon}</span>
+                <div className="w-16 h-16 rounded-full overflow-hidden border border-[#e8720a]/20 bg-white">
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <span className="text-xs font-semibold text-[#3d280f] text-center leading-snug">{cat.name}</span>
               </Link>
             ))}

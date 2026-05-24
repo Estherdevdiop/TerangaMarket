@@ -142,6 +142,58 @@ lokaly-frontend/
 
 ---
 
+## 🤖 Système de recommandation
+Le moteur de recommandation est implémenté dans `backend/store/recommender.py` et exposé via les endpoints backend utilisés par le frontend.
+
+### 1. Architecture
+- `backend/store/recommender.py` contient les algorithmes : `recommend_home`, `recommend_similar`, `recommend_popular`, `recommend_new`, `recommend_personalized`.
+- `backend/store/views.py` expose les endpoints :
+  - `GET /api/recommendations/home`
+  - `GET /api/recommendations/product/<id>`
+  - `POST /api/recommendations/track-impression`
+  - `POST /api/recommendations/track-click`
+- Frontend : `components/recommendation/RecommendationBlock.tsx` récupère les recommandations et enregistre les impressions.
+- `components/product/ProductCard.tsx` enregistre les clics sur les produits recommandés.
+
+### 2. Algorithmes implémentés
+- `recommend_new()` : produits récents publiés.
+- `recommend_popular()` : score de popularité basé sur les interactions et les ventes.
+- `recommend_similar(product_id)` : produit similaire basé sur les métadonnées (catégorie, matière, style, couleur, technique, occasion, région, tags, prix) + petit bonus popularité.
+- `recommend_personalized(user)` : profil utilisateur construit à partir des événements et des commandes, puis score hybride sur le catalogue.
+
+### 3. Données utilisées
+- Produit : `categorie`, `material`, `style`, `color`, `technique`, `occasion`, `region_origine`, `tags`, `is_local`, `status`, `stock`.
+- Interactions : `InteractionEvent` enregistre `product_view`, `recommendation_impression`, `recommendation_click`, `add_to_cart`, `order_created`, `recommendation_order_assist`, etc.
+- Ventes : `LigneCommande` contribue au score de popularité.
+
+### 4. Logique de recommandation hybride
+- Pour l’accueil, `recommend_home()` choisit :
+  - `new` → nouveautés
+  - `top` → popularité
+  - `personalized` → hybride si l’utilisateur est connecté, sinon popularité
+- Le mode personnalisé construit un profil utilisateur à partir des événements récents et des commandes, puis calcule un score produit.
+- Bonus métier : produit local + nouveautés récentes + score de popularité limité.
+- Cold start : si l’utilisateur n’a pas d’historique, le système bascule sur la popularité ou les nouveautés.
+
+### 5. Tracking et evaluation
+- `frontend/lib/tracking.ts` expose `track()`, `trackImpression()` et `trackClick()`.
+- Les impressions et clics sont stockés dans `InteractionEvent`.
+- Le backend admin expose `GET /api/admin/analytics/recommendations` pour calculer :
+  - CTR global
+  - CTR par bloc (`home`, `product_detail`, `cart`)
+  - CTR par algorithme (`popular`, `content`, `hybrid`, `association`, `knn`)
+  - add-to-cart rate
+  - conversion assistée
+  - top produits recommandés et cliqués
+
+### 6. Pourquoi c’est défendable pour un mémoire
+- C’est un moteur hybride simple, explicable et réaliste pour un MVP.
+- Il combine contenu, comportement utilisateur et popularité.
+- Il gère le cold start et fournit des métriques d’évaluation concrètes.
+- L’implémentation est documentée, testable et liée à un dashboard analytics.
+
+---
+
 ## 🎨 Design System
 
 **Couleurs principales :**
